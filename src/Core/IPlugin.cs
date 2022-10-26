@@ -1,11 +1,12 @@
 ﻿using System;
 
-namespace Core
+namespace PluginArchitecture.Core
 {
     public interface IPlugin
     {
         string Name { get; }
-		string Explanation { get; }
-		void Go(string parameters);
+		string Description { get; }
+        string Category { get; }
+		void Run(string parameter);
     }
 }

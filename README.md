@@ -1,1 +1,1 @@
-# Sample-PluginArchitecture
+# PluginArchitecture Demo

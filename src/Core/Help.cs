@@ -4,32 +4,25 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Core
+namespace PluginArchitecture.Core
 {
     public class Help : IPlugin
 	{
-		public void Go (string parameters)
-		{
-			foreach(IPlugin plugin in PluginLoader.Plugins)
-			{
-				Console.WriteLine("{0}: {1}", plugin.Name, plugin.Explanation);
-			}
-		}
+		public string Name => "Help";
 
-		public string Name
-		{
-			get
-			{
-				return "help";
-			}
-		}
+		public string Description => "This plugin shows all loaded plugins and their explanations";
 
-		public string Explanation
+		public string Category => "System";
+
+		public void Run (string parameter)
 		{
-			get
-			{
-				return "This plugin shows all loaded plugins and their explanations";
-			}
+			IEnumerable<IPlugin> plugins = PluginLoader.Plugins;
+
+			if (!string.IsNullOrWhiteSpace(parameter))
+				plugins = PluginLoader.Plugins.Where(x => x.Name.ToLower().Equals(parameter.ToLower()));
+
+			foreach(IPlugin plugin in plugins)
+				Console.WriteLine("Name: {0} | Category: {1} | Description: {2}", plugin.Name, plugin.Category, plugin.Description);
 		}
 	}
 }
